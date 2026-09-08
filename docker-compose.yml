@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    container_name: tallerweb_app
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=development
+      - PORT=8000
+    restart: unless-stopped

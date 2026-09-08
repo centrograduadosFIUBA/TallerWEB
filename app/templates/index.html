@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio | {{ titulo }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="p-5 mb-4 bg-body-tertiary rounded-4 border shadow-sm">
+    <div class="container-fluid py-2">
+        <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1 rounded-pill">
+                <i class="bi bi-stars me-1"></i> Proyecto Inicial
+            </span>
+            <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-1 rounded-pill">
+                <i class="bi bi-clock me-1"></i> {{ fecha_actual }}
+            </span>
+        </div>
+        <h1 class="display-5 fw-bold text-gradient mb-3">{{ titulo }}</h1>
+        <p class="col-md-9 fs-5 text-secondary mb-4">
+            {{ descripcion }}. Esta aplicación base ya cuenta con arquitectura moderna en <strong>FastAPI</strong>, soporte para plantillas <strong>Jinja2</strong>, archivos estáticos, contenedor <strong>Docker</strong> optimizado y está lista para Coolify.
+        </p>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="/docs" target="_blank" class="btn btn-primary btn-lg px-4 shadow-sm">
+                <i class="bi bi-box-arrow-up-right me-1"></i> Ver Swagger UI
+            </a>
+            <button id="btnTestApi" class="btn btn-outline-secondary btn-lg px-4">
+                <i class="bi bi-play-circle me-1"></i> Probar API en Vivo
+            </button>
+            <a href="/about" class="btn btn-link text-decoration-none text-secondary align-self-center ms-2">
+                Más información <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- API Live Response Alert (Hidden by default) -->
+<div id="apiResultContainer" class="alert alert-dark border shadow-sm d-none mb-4" role="alert">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h6 class="alert-heading mb-0 fw-bold"><i class="bi bi-terminal me-2 text-info"></i>Respuesta de la API (/api/info)</h6>
+        <button type="button" class="btn-close btn-close-white btn-sm" id="btnCloseApiResult"></button>
+    </div>
+    <pre class="mb-0"><code id="apiResultCode" class="text-success small"></code></pre>
+</div>
+
+<!-- Grid de Información y Módulos -->
+<div class="row g-4 mb-5">
+    <!-- Columna Izquierda: Plan del Taller -->
+    <div class="col-lg-8">
+        <div class="card border shadow-sm h-100">
+            <div class="card-header bg-transparent py-3 border-bottom d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0 fw-bold">
+                    <i class="bi bi-journal-code text-primary me-2"></i>Ruta de Aprendizaje en Clase
+                </h5>
+                <span class="badge bg-info-subtle text-info border border-info-subtle">Paso a Paso</span>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    {% for mod in modulos %}
+                    <div class="list-group-item p-3 d-flex align-items-start gap-3">
+                        <div class="bg-primary-subtle text-primary rounded-3 p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                            <i class="bi {{ mod.icono }} fs-5"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <h6 class="mb-0 fw-bold">{{ mod.titulo }}</h6>
+                                {% if mod.estado == 'Completado' %}
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle">{{ mod.estado }}</span>
+                                {% elif mod.estado == 'En curso' %}
+                                    <span class="badge bg-warning-subtle text-warning border border-warning-subtle">{{ mod.estado }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle">{{ mod.estado }}</span>
+                                {% endif %}
+                            </div>
+                            <p class="mb-0 text-secondary small">{{ mod.descripcion }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Columna Derecha: Detalles del Entorno -->
+    <div class="col-lg-4">
+        <div class="card border shadow-sm mb-4">
+            <div class="card-header bg-transparent py-3 border-bottom">
+                <h5 class="card-title mb-0 fw-bold">
+                    <i class="bi bi-hdd-network text-success me-2"></i>Estado del Servidor
+                </h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0 d-flex flex-column gap-3">
+                    <li class="d-flex justify-content-between align-items-center">
+                        <span class="text-secondary small">Framework</span>
+                        <span class="badge bg-body-secondary text-light fw-medium">FastAPI</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center">
+                        <span class="text-secondary small">Entorno</span>
+                        <span class="badge bg-body-secondary text-light fw-medium">{{ servidor_entorno }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center">
+                        <span class="text-secondary small">Contenedor</span>
+                        <span class="badge bg-body-secondary text-light fw-medium">Docker (Debian Slim)</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center">
+                        <span class="text-secondary small">Healthcheck</span>
+                        <a href="/health" target="_blank" class="badge bg-success text-decoration-none">/health (200 OK)</a>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center">
+                        <span class="text-secondary small">Documentación</span>
+                        <a href="/docs" target="_blank" class="badge bg-info text-dark text-decoration-none">Swagger UI</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card border shadow-sm bg-primary-subtle border-primary-subtle">
+            <div class="card-body">
+                <h6 class="card-title fw-bold text-primary mb-2">
+                    <i class="bi bi-lightbulb me-1"></i> ¿Cómo continuar en clase?
+                </h6>
+                <p class="card-text small text-body-secondary mb-0">
+                    Para agregar nuevas vistas, simplemente edita <code>app/main.py</code> añadiendo una función con el decorador <code>@app.get()</code> y crea su plantilla correspondiente en <code>app/templates/</code>.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
