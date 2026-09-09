@@ -15,7 +15,7 @@ from fastapi.templating import Jinja2Templates
 app = FastAPI(
     title="Taller Web con Python",
     description="Aplicación web didáctica desarrollada paso a paso con FastAPI, Jinja2 y Coolify.",
-    version="1.0.1",
+    version="1.1.0",
     docs_url="/docs",
     redoc_url="/redoc",
 )
@@ -124,7 +124,7 @@ async def healthcheck():
     return {
         "status": "healthy",
         "app": "tallerweb",
-        "version": "1.0.1",
+        "version": "1.1.0",
         "timestamp": datetime.now().isoformat(),
     }
 
