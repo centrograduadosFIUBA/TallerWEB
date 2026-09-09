@@ -79,7 +79,7 @@ Para montar este proyecto en tu VPS de pruebas con **Coolify**, sigue estos senc
    - Ve al proyecto o entorno donde quieras alojarlo (ej: *Testing* o *Default*).
 2. **Crear Nuevo Recurso**:
    - Haz clic en **+ New Resource** → **Public Repository** (o Private via GitHub App).
-   - Ingresa la URL del repositorio: https://github.com/ofazzito/tallerweb
+   - Ingresa la URL del repositorio: https://github.com/centrograduadosFIUBA/TallerWEB
    - Rama (*Branch*): main
 3. **Configuración de la Aplicación**:
    - **Build Pack**: Selecciona **Dockerfile** (Coolify detectará automáticamente el archivo Dockerfile en la raíz).
