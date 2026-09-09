@@ -6,10 +6,14 @@ las plantillas Jinja2 y los endpoints de API didácticos para la clase.
 
 import os
 from datetime import datetime
+from dotenv import load_dotenv
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+
+# Cargar variables de entorno desde el archivo .env si está presente
+load_dotenv()
 
 # Inicialización de la aplicación FastAPI
 app = FastAPI(

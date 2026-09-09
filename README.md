@@ -6,7 +6,7 @@ Proyecto base didáctico para el desarrollo paso a paso de una aplicación web c
 
 ## 📁 Estructura del Proyecto
 
-`	ext
+```text
 tallerweb/
 ├── app/
 │   ├── __init__.py           # Inicializador del paquete
@@ -25,7 +25,7 @@ tallerweb/
 ├── Dockerfile                # Configuración de contenedor optimizada
 ├── README.md                 # Guía didáctica y de despliegue
 └── requirements.txt          # Dependencias de Python
-`
+```
 
 ---
 
@@ -34,7 +34,7 @@ tallerweb/
 ### Opción 1: Con Python (Entorno Virtual)
 
 1. Crear y activar un entorno virtual:
-   `ash
+   ```bash
    # En Windows:
    python -m venv venv
    .\venv\Scripts\activate
@@ -42,17 +42,17 @@ tallerweb/
    # En Linux/macOS:
    python3 -m venv venv
    source venv/bin/activate
-   `
+   ```
 
 2. Instalar dependencias:
-   `ash
+   ```bash
    pip install -r requirements.txt
-   `
+   ```
 
 3. Iniciar el servidor en modo desarrollo con recarga automática:
-   `ash
+   ```bash
    uvicorn app.main:app --reload --port 8000
-   `
+   ```
 
 4. Abrir en el navegador:
    - Sitio Web: [http://localhost:8000](http://localhost:8000)
@@ -63,9 +63,9 @@ tallerweb/
 
 ### Opción 2: Con Docker Compose
 
-`ash
+```bash
 docker compose up --build
-`
+```
 
 La aplicación quedará disponible inmediatamente en [http://localhost:8000](http://localhost:8000).
 
@@ -79,14 +79,14 @@ Para montar este proyecto en tu VPS de pruebas con **Coolify**, sigue estos senc
    - Ve al proyecto o entorno donde quieras alojarlo (ej: *Testing* o *Default*).
 2. **Crear Nuevo Recurso**:
    - Haz clic en **+ New Resource** → **Public Repository** (o Private via GitHub App).
-   - Ingresa la URL del repositorio: https://github.com/centrograduadosFIUBA/TallerWEB
-   - Rama (*Branch*): main
+   - Ingresa la URL del repositorio: `https://github.com/centrograduadosFIUBA/TallerWEB` (o la URL de tu propio **fork** si hiciste uno para trabajar en tu cuenta de GitHub).
+   - Rama (*Branch*): `main`
 3. **Configuración de la Aplicación**:
    - **Build Pack**: Selecciona **Dockerfile** (Coolify detectará automáticamente el archivo Dockerfile en la raíz).
    - **Port**: 8000 (puerto expuesto).
-   - **Health Check Path**: /health
+   - **Health Check Path**: `/health`
 4. **Dominio / Subdominio**:
-   - Asigna un dominio o deja que Coolify genere uno automático (ej. 	allerweb.tudominio.com).
+   - Asigna un dominio o deja que Coolify genere uno automático (ej. `tallerweb.tudominio.com`).
 5. **Deploy**:
    - Haz clic en **Deploy**. Coolify construirá la imagen Docker, configurará el proxy Traefik y publicará la web con SSL automáticamente.
 
@@ -96,19 +96,19 @@ Para montar este proyecto en tu VPS de pruebas con **Coolify**, sigue estos senc
 
 | Método | Ruta | Descripción |
 |---|---|---|
-| GET | / | Página de bienvenida con la ruta didáctica de la clase |
-| GET | /about | Información del taller y conceptos a aprender |
-| GET | /health | Healthcheck para Docker y Traefik (retorna 200 OK) |
-| GET | /api/info | Endpoint JSON con metadatos del servidor |
-| GET | /docs | Interfaz interactiva OpenAPI / Swagger |
-| GET | /redoc | Documentación alternativa ReDoc |
+| GET | `/` | Página de bienvenida con la ruta didáctica de la clase |
+| GET | `/about` | Información del taller y conceptos a aprender |
+| GET | `/health` | Healthcheck para Docker y Traefik (retorna 200 OK) |
+| GET | `/api/info` | Endpoint JSON con metadatos del servidor |
+| GET | `/docs` | Interfaz interactiva OpenAPI / Swagger |
+| GET | `/redoc` | Documentación alternativa ReDoc |
 
 ---
 
 ## 👨‍🏫 Desarrollo Paso a Paso en Clase
 
 1. **Paso 1 (Actual)**: Servidor base en FastAPI, Jinja2, Dockerfile y despliegue continuo.
-2. **Paso 2**: Parámetros de ruta (/saludo/{nombre}), consultas (?categoria=python) y renderizado dinámico.
-3. **Paso 3**: Formularios HTML con Form(...) y validación de esquemas con Pydantic.
+2. **Paso 2**: Parámetros de ruta (`/saludo/{nombre}`), consultas (`?categoria=python`) y renderizado dinámico.
+3. **Paso 3**: Formularios HTML con `Form(...)` y validación de esquemas con Pydantic.
 4. **Paso 4**: Base de datos SQLite / PostgreSQL con SQLAlchemy para persistencia real.
-5. **Paso 5**: Consumo asíncrono con JavaScript mediante etch() para componentes reactivos.
+5. **Paso 5**: Consumo asíncrono con JavaScript mediante `fetch()` para componentes reactivos.
