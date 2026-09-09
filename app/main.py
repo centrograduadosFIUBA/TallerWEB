@@ -90,7 +90,7 @@ async def read_home(request: Request):
         "fecha_actual": datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
         "modulos": modulos_clase,
     }
-    return templates.TemplateResponse("index.html", contexto)
+    return templates.TemplateResponse(request=request, name="index.html", context=contexto)
 
 
 @app.get("/about", response_class=HTMLResponse, summary="Página Acerca de")
@@ -107,7 +107,7 @@ async def read_about(request: Request):
         "request": request,
         "titulo": "Acerca del Taller Web",
     }
-    return templates.TemplateResponse("about.html", contexto)
+    return templates.TemplateResponse(request=request, name="about.html", context=contexto)
 
 
 # ==============================================================================
