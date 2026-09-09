@@ -1,0 +1,22 @@
+name: Deploy to Coolify
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Trigger Coolify Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Coolify Deploy Webhook
+        run: |
+          if [ -z "${{ secrets.COOLIFY_WEBHOOK_URL }}" ]; then
+            echo "::error::El secreto COOLIFY_WEBHOOK_URL no está configurado en GitHub Secrets."
+            exit 1
+          fi
+          echo "Disparando despliegue continuo en Coolify..."
+          curl --fail --silent --show-error -L -X GET "${{ secrets.COOLIFY_WEBHOOK_URL }}"
+          echo "¡Señal enviada a Coolify con éxito!"
